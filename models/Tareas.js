@@ -76,6 +76,7 @@ class Tareas {
 
     };
 
+    
 
 
     async borrarTareas() {
@@ -94,6 +95,70 @@ class Tareas {
             
             choices.push({ value:`${cont}`, name: `${cont}. `.green+`${lista.desc}`+` ::${valor}` });
             cont++;
+           
+        }
+
+        let question = {
+            type: 'list',
+            name: 'opcion',
+            message: 'que desea hacer',
+            choices
+        };
+        const {opcion} = await inquirer.prompt(question);
+        console.log("este "+opcion);
+        
+
+    };
+
+    async listarTareasCompletadas() {
+        let tareas = [];
+        let choices = [];
+        let cont = 1;
+        let valor;
+        for (let lista of this.listadoArr) {
+
+           // if (lista.desc == null)  valor = "PENDIENTE";
+
+           valor=lista.completadoEn==null?"PENDIENTE".red:"COMPLETADA".green;
+           
+
+
+            if(lista.completadoEn== true){
+            choices.push({ value:`${cont}`, name: `${cont}. `.green+`${lista.desc}`+` ::${valor}` });
+            cont++;
+        }
+           
+        }
+
+        let question = {
+            type: 'list',
+            name: 'opcion',
+            message: 'que desea hacer',
+            choices
+        };
+        const {opcion} = await inquirer.prompt(question);
+        console.log("este "+opcion);
+        
+
+    };
+
+    async listarTareasPendientes() {
+        let tareas = [];
+        let choices = [];
+        let cont = 1;
+        let valor;
+        for (let lista of this.listadoArr) {
+
+           // if (lista.desc == null)  valor = "PENDIENTE";
+
+           valor=lista.completadoEn==null?"PENDIENTE".red:"COMPLETADA".green;
+           
+
+
+            if(lista.completadoEn== null){
+            choices.push({ value:`${cont}`, name: `${cont}. `.green+`${lista.desc}`+` ::${valor}` });
+            cont++;
+        }
            
         }
 
