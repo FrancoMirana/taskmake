@@ -29,7 +29,7 @@ const main = async () => {
   console.log("INICIA APP");
 
   if (tareasDB) {
- 
+    
     //establecer tareas
     ts.cargarTarea(tareasDB);
  
@@ -62,6 +62,7 @@ const main = async () => {
       break;
       case '4':
         await ts.listarTareasPendientes();
+        
       
       break;
 
@@ -69,7 +70,15 @@ const main = async () => {
     
       case '6':
        
-     await ts.borrarTareas();
+     const id =await ts.listarBorrarTareas();
+ 
+     console.log(id);
+     if(id!=null)
+     {
+      ts.eliminarTarea(id);
+     }
+
+
 
         break;
         

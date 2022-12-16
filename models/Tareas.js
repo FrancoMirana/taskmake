@@ -1,6 +1,6 @@
 const Tarea = require("./Tarea");
 const inquirer = require('inquirer');
-  const { yellow } = require('colors');
+const { yellow } = require('colors');
 const { leerInput, pausa } = require("../helpers/inquirer");
 class Tareas {
 
@@ -45,22 +45,22 @@ class Tareas {
     }
 
     async listarTareas() {
-       
+
         let choices = [];
         let cont = 1;
         let valor;
         for (let lista of this.listadoArr) {
 
-           // if (lista.desc == null)  valor = "PENDIENTE";
+            // if (lista.desc == null)  valor = "PENDIENTE";
 
-           valor=lista.completadoEn==null?"PENDIENTE".red:"COMPLETADA".green;
-           
+            valor = lista.completadoEn == null ? "PENDIENTE".red : "COMPLETADA".green;
 
 
-            
-            choices.push({ value:`${cont}`, name: `${cont}. `.green+`${lista.desc}`+` ::${valor}` });
+
+
+            choices.push({ value: `${cont}`, name: `${cont}. `.green + `${lista.desc}` + ` ::${valor}` });
             cont++;
-           
+
         }
 
         let question = {
@@ -69,44 +69,44 @@ class Tareas {
             message: 'Se selecciono la siguiente tarea',
             choices
         };
-        
-        
+
+
 
 
 
     };
 
-    
 
 
-    async borrarTareas() {
+
+    async listarBorrarTareas() {
         let tareas = [];
         let choices = [];
         let cont = 1;
         let valor;
         for (let lista of this.listadoArr) {
 
-           // if (lista.desc == null)  valor = "PENDIENTE";
+            // if (lista.desc == null)  valor = "PENDIENTE";
 
-           valor=lista.completadoEn==null?"PENDIENTE".red:"COMPLETADA".green;
-           
+            valor = lista.completadoEn == null ? "PENDIENTE".red : "COMPLETADA".green;
 
 
-            
-            choices.push({ value:`${cont}`, name: `${cont}. `.green+`${lista.desc}`+` ::${valor}` });
+
+
+            choices.push({ value: `${lista.id}`, name: `${cont}. `.green + `${lista.desc}` + ` ::${valor}` });
             cont++;
-           
+
         }
 
         let question = {
             type: 'list',
-            name: 'opcion',
+            name: 'id',
             message: 'que desea hacer',
             choices
         };
-        const {opcion} = await inquirer.prompt(question);
-        console.log("este "+opcion);
-        
+        const { id } = await inquirer.prompt(question);
+        return id;
+
 
     };
 
@@ -117,17 +117,15 @@ class Tareas {
         let valor;
         for (let lista of this.listadoArr) {
 
-           // if (lista.desc == null)  valor = "PENDIENTE";
+            // if (lista.desc == null)  valor = "PENDIENTE";
 
-           valor=lista.completadoEn==null?"PENDIENTE".red:"COMPLETADA".green;
-           
+            valor = lista.completadoEn == null ? "PENDIENTE".red : "COMPLETADA".green;
 
+            if (lista.completadoEn == true) {
+                choices.push({ value: `${cont}`, name: `${cont}. `.green + `${lista.desc}` + ` ::${valor}` });
+                cont++;
+            }
 
-            if(lista.completadoEn== true){
-            choices.push({ value:`${cont}`, name: `${cont}. `.green+`${lista.desc}`+` ::${valor}` });
-            cont++;
-        }
-           
         }
 
         let question = {
@@ -136,9 +134,9 @@ class Tareas {
             message: 'que desea hacer',
             choices
         };
-        const {opcion} = await inquirer.prompt(question);
-        console.log("este "+opcion);
-        
+        const { opcion } = await inquirer.prompt(question);
+        console.log("este " + opcion);
+
 
     };
 
@@ -149,17 +147,17 @@ class Tareas {
         let valor;
         for (let lista of this.listadoArr) {
 
-           // if (lista.desc == null)  valor = "PENDIENTE";
+            // if (lista.desc == null)  valor = "PENDIENTE";
 
-           valor=lista.completadoEn==null?"PENDIENTE".red:"COMPLETADA".green;
-           
+            valor = lista.completadoEn == null ? "PENDIENTE".red : "COMPLETADA".green;
 
 
-            if(lista.completadoEn== null){
-            choices.push({ value:`${cont}`, name: `${cont}. `.green+`${lista.desc}`+` ::${valor}` });
-            cont++;
-        }
-           
+
+            if (lista.completadoEn == null) {
+                choices.push({ value: `${cont}`, name: `${cont}. `.green + `${lista.desc}` + ` ::${valor} `, id: lista.id });
+                cont++;
+            }
+
         }
 
         let question = {
@@ -168,11 +166,24 @@ class Tareas {
             message: 'que desea hacer',
             choices
         };
-        const {opcion} = await inquirer.prompt(question);
-        console.log("este "+opcion);
-        
+        const { opcion } = await inquirer.prompt(question);
+        console.log("este " + opcion);
+
 
     };
+
+    eliminarTarea(id) {
+        let aux = this.listadoArr.filter(obj => obj.id !== id);
+        this._listado = {};
+        
+        aux.forEach((tarea = []) => {
+
+            this._listado[tarea.id] = tarea
+
+        })
+
+    }
+
 
 }
 
