@@ -76,7 +76,37 @@ class Tareas {
 
     };
 
+ async completarTareas(){
 
+
+    let choices = [];
+    let cont = 1;
+    let valor;
+    for (let lista of this.listadoArr) {
+
+       
+
+        valor = lista.completadoEn == null ? "PENDIENTE".red : "COMPLETADA".green;
+
+
+
+
+        choices.push({ value: `${cont}`, name: `${cont}. `.green + `${lista.desc}` + ` ::${valor}` });
+        cont++;
+
+    }
+
+    let question = {
+        type: 'list',
+        name: 'id',
+        message: 'que Desea completar',
+        choices
+    };
+    const { id } = await inquirer.prompt(question);
+    return id;
+
+
+ }
 
 
     
@@ -174,6 +204,20 @@ class Tareas {
     };
 
     eliminarTarea(id) {
+        let aux = this.listadoArr.filter(obj => obj.id !== id);
+        this._listado = {};
+        
+        aux.forEach((tarea = []) => {
+
+            this._listado[tarea.id] = tarea
+
+        })
+
+    }
+
+    completarTarea(id) {
+
+        //se tiene que buscar la tarea por id y cambiar el estado
         let aux = this.listadoArr.filter(obj => obj.id !== id);
         this._listado = {};
         

@@ -62,7 +62,10 @@ const main = async () => {
       break;
       case '4':
         await ts.listarTareasPendientes();
-        
+        break;
+      case '5':
+      
+      const idTarea = await ts.completarTareas();
       
       break;
 
