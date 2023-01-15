@@ -2,6 +2,7 @@ const Tarea = require("./Tarea");
 const inquirer = require('inquirer');
 const { yellow } = require('colors');
 const { leerInput, pausa } = require("../helpers/inquirer");
+const { clearScreenDown } = require("readline");
 class Tareas {
 
     _listado = {};
@@ -78,20 +79,20 @@ class Tareas {
 
  async completarTareas(){
 
-
+    let tareas = [];
     let choices = [];
     let cont = 1;
     let valor;
     for (let lista of this.listadoArr) {
 
-       
+        // if (lista.desc == null)  valor = "PENDIENTE";
 
         valor = lista.completadoEn == null ? "PENDIENTE".red : "COMPLETADA".green;
 
 
 
 
-        choices.push({ value: `${cont}`, name: `${cont}. `.green + `${lista.desc}` + ` ::${valor}` });
+        choices.push({ value: `${lista.id}`, name: `${cont}. `.green + `${lista.desc}` + ` ::${valor}` });
         cont++;
 
     }
@@ -99,7 +100,7 @@ class Tareas {
     let question = {
         type: 'list',
         name: 'id',
-        message: 'que Desea completar',
+        message: 'que desea hacer',
         choices
     };
     const { id } = await inquirer.prompt(question);
@@ -218,15 +219,14 @@ class Tareas {
     completarTarea(id) {
 
         //se tiene que buscar la tarea por id y cambiar el estado
-        let aux = this.listadoArr.filter(obj => obj.id !== id);
-        this._listado = {};
-        
-        aux.forEach((tarea = []) => {
-
-            this._listado[tarea.id] = tarea
-
+        let aux =  this.listadoArr ;
+       
+        aux.forEach((tarea=[]) => {
+            
+            if(tarea.idc==id)  tarea.desc= "COMPLETADA";
+           
         })
-
+        console.log(aux);
     }
 
 

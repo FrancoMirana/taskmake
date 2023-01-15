@@ -1,1 +1,1 @@
-[{"id":"ede4520a","desc":"trabajar","completadoEn":null},{"id":"7984cd28","desc":"comer","completadoEn":null},{"id":"d5c8926b","desc":"salir","completadoEn":null}]
+[{"id":"8d50a4b7","desc":"trabajar","completadoEn":null}]

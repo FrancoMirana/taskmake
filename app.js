@@ -66,6 +66,8 @@ const main = async () => {
       case '5':
       
       const idTarea = await ts.completarTareas();
+     
+      ts.completarTarea(idTarea);
       
       break;
 
