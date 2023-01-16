@@ -71,46 +71,46 @@ class Tareas {
             choices
         };
 
-
+        return  await inquirer.prompt(question);
 
 
 
     };
 
- async completarTareas(){
+    async completarTareas() {
 
-    let tareas = [];
-    let choices = [];
-    let cont = 1;
-    let valor;
-    for (let lista of this.listadoArr) {
+        let tareas = [];
+        let choices = [];
+        let cont = 1;
+        let valor;
+        for (let lista of this.listadoArr) {
 
-        // if (lista.desc == null)  valor = "PENDIENTE";
+            // if (lista.desc == null)  valor = "PENDIENTE";
 
-        valor = lista.completadoEn == null ? "PENDIENTE".red : "COMPLETADA".green;
-
-
+            valor = lista.completadoEn == null ? "PENDIENTE".red : "COMPLETADA".green;
 
 
-        choices.push({ value: `${lista.id}`, name: `${cont}. `.green + `${lista.desc}` + ` ::${valor}` });
-        cont++;
+
+
+            choices.push({ value: `${lista.id}`, name: `${cont}. `.green + `${lista.desc}` + ` ::${valor}` });
+            cont++;
+
+        }
+
+        let question = {
+            type: 'list',
+            name: 'id',
+            message: 'que desea hacer',
+            choices
+        };
+        const { id } = await inquirer.prompt(question);
+        return id;
+
 
     }
 
-    let question = {
-        type: 'list',
-        name: 'id',
-        message: 'que desea hacer',
-        choices
-    };
-    const { id } = await inquirer.prompt(question);
-    return id;
 
 
- }
-
-
-    
     async listarBorrarTareas() {
         let tareas = [];
         let choices = [];
@@ -167,7 +167,7 @@ class Tareas {
             choices
         };
         const { opcion } = await inquirer.prompt(question);
-        console.log("este " + opcion);
+     
 
 
     };
@@ -199,7 +199,7 @@ class Tareas {
             choices
         };
         const { opcion } = await inquirer.prompt(question);
-        console.log("este " + opcion);
+        
 
 
     };
@@ -207,7 +207,7 @@ class Tareas {
     eliminarTarea(id) {
         let aux = this.listadoArr.filter(obj => obj.id !== id);
         this._listado = {};
-        
+
         aux.forEach((tarea = []) => {
 
             this._listado[tarea.id] = tarea
@@ -216,17 +216,19 @@ class Tareas {
 
     }
 
+
+
     completarTarea(id) {
 
         //se tiene que buscar la tarea por id y cambiar el estado
-        let aux =  this.listadoArr ;
-       
-        aux.forEach((tarea=[]) => {
-            
-            if(tarea.idc==id)  tarea.desc= "COMPLETADA";
-           
-        })
-        console.log(aux);
+        this.listadoArr.filter(obj => {
+            if (obj.id === id) {
+                obj.completadoEn = true
+            }
+        });
+
+     
+        
     }
 
 

@@ -3,7 +3,7 @@ class Tarea {
 
     id = '';
     desc = '';
-    completadoEn = 'PENDIENTE';
+    completadoEn = 'null';
 
     constructor(desc) {
         let guid=uuidv4()

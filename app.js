@@ -51,9 +51,8 @@ const main = async () => {
         break;
       case '2':
         //se list el arreglo ya se el de objetos o la lista de tarea guardada en nmemoria
-
-      
        await ts.listarTareas();
+       
        break;
 
        case '3':
